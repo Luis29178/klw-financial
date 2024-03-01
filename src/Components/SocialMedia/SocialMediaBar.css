@@ -1,0 +1,23 @@
+.socialBar {
+  display: flex;
+  flex-direction: row;
+  height: 50px;
+  width: 100%;
+  justify-content: center;
+  margin-top: 15px;
+  margin-bottom: 25px;
+  gap: 15px;
+}
+
+.socialBar a {
+    display: inline-block; /* Ensures the anchor tag behaves like a block element */
+    height: 30px;
+    width: 30px;
+    
+}
+
+.socialBar a img {
+    height: 100%; /* Set the height of the image to fill the height of the anchor tag */
+    width: 100%; /* Set the width of the image to fill the width of the anchor tag */
+    object-fit: cover; /* Ensures the image covers the entire area of the anchor tag */
+}

@@ -1,8 +1,10 @@
 import React from "react";
 import "./Home.css";
 import HomeList from "../../Components/HomeList/HomeList";
+import SocialMediaBar from "../../Components/SocialMedia/SocialMediaBar.jsx";
 import data from "../../consts/Links";
 import bio from "../../consts/BioMessage";
+import { PFP, Footer } from "../../assets";
 
 function Home() {
   return (
@@ -13,15 +15,20 @@ function Home() {
       <div className="pfp-container">
         <img
           className="pfp"
-          src={`${process.env.PUBLIC_URL}/assets/PFP-KLW.jpg`}
+          src={PFP}
           alt="Kay Lynn West"
         />
       </div>
+
+      
+      <SocialMediaBar />
+
+      
       <HomeList links={data.Links} />
 
       <div className="footerImg">
         <img
-          src={`${process.env.PUBLIC_URL}/assets/elegantFooter.png`}
+          src={Footer}
           alt="Kay Lynn West"
         />
       </div>

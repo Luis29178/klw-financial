@@ -7,7 +7,7 @@ export default function HomeListItem({img, index, url, description }) {
       <a className="linkBtn" href={url}>
         <div className="icoContainer">
           <img
-            src={`${process.env.PUBLIC_URL}${img}`}
+            src={img}
             alt={`item ${index + 1}`}
           />
         </div>
