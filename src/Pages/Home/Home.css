@@ -1,25 +1,59 @@
 .bio {
-  color: #333; /* Change the text color */
-  font-size: 16px; /* Set the font size */
+  color: #fff; /* Change the text color */
+  font-size: 13px; /* Set the font size */
   line-height: 1.5; /* Adjust line height for better readability */
-  margin: 20px 20px 0px 20px; /* Add some margin above and below the paragraph */
+  margin: 0px 20px 0px 20px; /* Add some margin above and below the paragraph */
   text-align: justify; /* Justify the text for a cleaner look */
+  font-family: "Poppins", sans-serif;
 }
 .name {
   font-size: 42px; /* Large text size */
-  color: #2a2a2a; /* Dark text color for contrast */
+  color: #fff; /* Dark text color for contrast */
   font-weight: bold; /* Make the font bold */
   margin: 20px 0 10px; /* Add some margin for spacing */
   text-align: center; /* Center align the text */
+  font-family: "Poppins", sans-serif;
 }
 
 .pfp {
   border-radius: 50%;
   width: 200px;
-  height: 200px;
+  height:200px;
 }
 .pfp-container {
   display: flex;
   justify-content: center;
   width: 100%;
+  height: auto;
+}
+.app {
+  display: flex;
+  flex-direction: column; /* Allows the app to grow and fill available space */
+  max-width: 700px; /* Full width */
+  height: 100vh; /* Full height */
+  padding: 20px; /* Padding on all sides */
+  overflow: auto;
+  justify-content: space-between;
+  scrollbar-width:thin;
+}
+.appContainer {
+  display: flex; /* Use flexbox to layout children */
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center children horizontally */
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  overflow: hidden;
+}
+
+.footerImg {
+  margin-top: 50px;
+  display: flex;
+  bottom: 0;
+  justify-content: center;
+  width: 100%;
+  height: 50px;
+}
+.footerImg img {
+  max-height: 50px;
 }

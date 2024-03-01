@@ -1,13 +1,14 @@
 import React from "react";
-import HomeListItem from "./HomeListItem";
+import HomeListItem from "../HomeListItem/HomeListItem";
+import "./HomeList.css";
 
 function HomeList({ links }) {
   return (
-    <ul>
+    <div className="listContainer">
       {links.map((link, index) => (
-        <HomeListItem key={index} url={link.url} description={link.description} />
+        <HomeListItem key={index} img ={link.img} url={link.url} description={link.description} />
       ))}
-    </ul>
+    </div>
   );
 }
 

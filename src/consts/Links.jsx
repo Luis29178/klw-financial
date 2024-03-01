@@ -1,8 +1,26 @@
-const links = [
-  { description: "Link 1", url: "https://link1.com" },
-  { description: "Link 2", url: "https://link2.com" },
-  { description: "Link 3", url: "https://link3.com" },
-];
+const data = {
+  Links: [
+    {
+      img: `/assets/KLW.png`,
+      description: "Book an appointment with me",
+      url: "https://link1.com",
+    },
+    {
+      img: `/assets/KLW.png`,
+      description: " The Retirement Miracle ",
+      url: "https://drive.google.com/file/d/1G1K7M6rDiKg-b6aCHsDkRQVU1S3EYJ1_/view?usp=drivesdk",
+    },
+    {
+      img: `/assets/GFI-logo.png`,
+      description: "Check out our website",
+      url: "https://globalfinancialimpact.com",
+    },
+    {
+      img: `/assets/ethos-logo.png`,
+      description: "Get a life insurance quote with potential instant approval ",
+      url: "https://agents.ethoslife.com/invite/47a9b",
+    },
+  ],
+};
 
-
-export default {links};
+export default data;
