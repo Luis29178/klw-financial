@@ -5,7 +5,7 @@ const data = {
     {
       img: KLW,
       description: "Book an appointment with me",
-      url: "https://link1.com",
+      url: "/appointments",
     },
     {
       img: KLW,
