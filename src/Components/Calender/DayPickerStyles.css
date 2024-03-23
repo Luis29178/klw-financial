@@ -1,5 +1,5 @@
 .rdp {
-  --rdp-cell-size: 40px; /* Size of the day cells. */
+  --rdp-cell-size: 45px; /* Size of the day cells. */
   --rdp-caption-font-size: 18px; /* Font size for the caption labels. */
   --rdp-accent-color: #fff; /* Accent color for the background of selected days. */
   --rdp-background-color: #ff000036; /* Background color for the hovered/focused elements. */
@@ -7,9 +7,10 @@
   --rdp-background-color-dark: #ff000036; /* Background color for the hovered/focused elements (to use in dark-mode). */
   --rdp-outline: 2px solid var(--rdp-accent-color); /* Outline border for focused elements */
   --rdp-outline-selected: 3px solid var(--rdp-accent-color); /* Outline border for focused _and_ selected elements */
-  --rdp-selected-color: #000; /* Color of selected day text */
-
-  margin: 1em;
+  --rdp-selected-color: #fff; /* Color of selected day text */
+  --rdp-selected-color-bg: #ff000000;
+  align-self: center;
+  margin: 1em 2em 0 2em;
 }
 
 /* Hide elements for devices that are not screen readers */
@@ -274,8 +275,9 @@
 .rdp-day_selected:focus-visible,
 .rdp-day_selected:hover {
   color: var(--rdp-selected-color);
+  background-color: var(--rdp-selected-color-bg);
   opacity: 1;
-  background-color: var(--rdp-accent-color);
+  border: var(--rdp-outline-selected);
 }
 
 .rdp-day_outside {
@@ -293,22 +295,22 @@
   z-index: 1;
 }
 
-.rdp:not([dir='rtl']) .rdp-day_range_start:not(.rdp-day_range_end) {
+.rdp:not([dir="rtl"]) .rdp-day_range_start:not(.rdp-day_range_end) {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
 
-.rdp:not([dir='rtl']) .rdp-day_range_end:not(.rdp-day_range_start) {
+.rdp:not([dir="rtl"]) .rdp-day_range_end:not(.rdp-day_range_start) {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
 
-.rdp[dir='rtl'] .rdp-day_range_start:not(.rdp-day_range_end) {
+.rdp[dir="rtl"] .rdp-day_range_start:not(.rdp-day_range_end) {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
 
-.rdp[dir='rtl'] .rdp-day_range_end:not(.rdp-day_range_start) {
+.rdp[dir="rtl"] .rdp-day_range_end:not(.rdp-day_range_start) {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -319,4 +321,43 @@
 
 .rdp-day_range_middle {
   border-radius: 0;
+}
+
+.time_table {
+  display: flex;
+  justify-content: space-between;
+}
+
+.hours_column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.time_text {
+  font-size: 14px;
+  border: var(--rdp-outline);
+  border-radius: 10px;
+  padding: 0.25em 0.5em 0.25em 0.5em;
+  font-weight: 600;
+  margin: 0.5em 0 0.5em 0;
+}
+.time_text:hover {
+  font-size: 14px;
+  border: var(--rdp-outline);
+  border-width: 3px;
+  margin: calc(0.5em - 1px) 0 calc(0.5em - 1px) 0;
+  text-align: center;
+}
+
+.time_text_selected {
+  font-size: 14px;
+  border: var(--rdp-outline);
+  border-width: 3px;
+  border-radius: 10px;
+  font-weight: 700;
+  padding: 0.25em 0.5em 0.25em 0.5em;
+  margin: calc(0.5em - 1px) 0 calc(0.5em - 1px) 0;
+  text-align: center;
 }

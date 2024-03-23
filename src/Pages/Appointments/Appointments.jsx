@@ -6,12 +6,21 @@ import "../../Components/Calender/DayPickerStyles.css";
 import { addYears } from "date-fns";
 
 const Appointments = () => {
-  const [selected, setSelected] = useState(undefined);
+  const [selectedDay, setSelectedDay] = useState(undefined);
+  const [selectedTime, setSelectedTime] = useState(undefined);
   const [disabledDays, setDisabledDays] = useState(undefined);
   // Function to generate an array of dates that are Tuesday, Thursday, or Saturday within a specified range
+
+  const tempHours = [
+    "10:00am - 11:00am",
+    "11:30am - 12:30pm",
+    "01:00pm - 02:00pm",
+    "02:30pm - 03:30pm",
+    "04:00pm - 05:00pm",
+  ];
   const generateTargetDaysArray = () => {
     const startDate = new Date(); // Start date (today)
-    const endDate = addYears(startDate, 5); // End date (December 31, 2099)
+    const endDate = addYears(startDate, 5); // End date 5 years later
 
     const isTargetDay = (date) => {
       const dayOfWeek = date.getDay();
@@ -38,25 +47,76 @@ const Appointments = () => {
     setDisabledDays([{ before: new Date() }, ...targetDaysArray]);
   }, []);
 
-
   useEffect(() => {
-    
-    console.log(selected)
-  }, [selected]);
+    console.log(selectedDay);
+  }, [selectedDay]);
 
+  const timeTable = (
+    <div className="time_table">
+      <div className="hours_column">
+        {tempHours.map((item, index) => {
+          if (index % 2 === 0) {
+            return (
+              <p
+                key={item}
+                className={
+                  selectedTime === item ? "time_text_selected" : "time_text"
+                }
+                onClick={() => {
+                  selectedTime !== item
+                    ? setSelectedTime(item)
+                    : setSelectedTime(undefined);
 
-  
+                  console.log(`selected day ${item}`);
+                }}
+              >
+                {item}
+              </p>
+            );
+          }
+          return null;
+        })}
+      </div>
+      <div className="hours_column">
+        {tempHours.map((item, index) => {
+          if (index % 2 === 1) {
+            return (
+              <p
+                key={item}
+                className={
+                  selectedTime === item ? "time_text_selected" : "time_text"
+                }
+                onClick={() => {
+                  selectedTime !== item
+                    ? setSelectedTime(item)
+                    : setSelectedTime(undefined);
+
+                  console.log(`selected day ${item} `);
+                }}
+              >
+                {item}
+              </p>
+            );
+          }
+          return null;
+        })}
+      </div>
+    </div>
+  );
 
   return (
     <div className="appointmentContainer">
       <div className="appointment">
         <DayPicker
           mode="single"
-          selected={selected}
-          onSelect={setSelected}
+          selected={selectedDay}
+          onSelect={setSelectedDay}
           disabled={disabledDays}
           showOutsideDays
+          footer={selectedDay !== undefined ? timeTable : <></>}
         />
+
+        <div className="purpose_notes_box"></div>
       </div>
     </div>
   );

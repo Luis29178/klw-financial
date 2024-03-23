@@ -6,7 +6,6 @@
     height: 100vh; /* Full height */
     padding: 20px; /* Padding on all sides */
     overflow: auto;
-    justify-content: space-between;
     scrollbar-width:thin;
     border: white solid 2px;
   }
@@ -18,4 +17,10 @@
     height: 100vh;
     background-color: #000;
     overflow: hidden;
+  }
+  .purpose_notes_box {
+    align-self: center;
+    width: 350px;
+    height: 30px;
+    border: 1px solid #fff;
   }
