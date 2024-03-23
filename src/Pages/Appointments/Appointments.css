@@ -1,0 +1,21 @@
+.appointment {
+    display: flex;
+    flex-direction: column; /* Allows the app to grow and fill available space */
+    max-width: 700px; /* Full width */
+    min-width: 350px;
+    height: 100vh; /* Full height */
+    padding: 20px; /* Padding on all sides */
+    overflow: auto;
+    justify-content: space-between;
+    scrollbar-width:thin;
+    border: white solid 2px;
+  }
+  .appointmentContainer {
+    display: flex; /* Use flexbox to layout children */
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center children horizontally */
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    overflow: hidden;
+  }

@@ -10,7 +10,7 @@ const data = {
     {
       img: KLW,
       description: " The Retirement Miracle ",
-      url: "https://drive.google.com/file/d/1G1K7M6rDiKg-b6aCHsDkRQVU1S3EYJ1_/view?usp=drivesdk",
+      url: " ",
     },
     {
       img: GFI,

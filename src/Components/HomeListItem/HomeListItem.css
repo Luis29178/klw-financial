@@ -1,7 +1,7 @@
 .listItem {
   display: flex; /* Establishes a flex container */
-  align-items: center; /* Centers items vertically */
   border-bottom: 1px solid;
+  
 }
 .linkBtn {
   width: 100%;
