@@ -1,26 +1,100 @@
 .appointment {
-    display: flex;
-    flex-direction: column; /* Allows the app to grow and fill available space */
-    max-width: 700px; /* Full width */
-    min-width: 350px;
-    height: 100vh; /* Full height */
-    padding: 20px; /* Padding on all sides */
-    overflow: auto;
-    scrollbar-width:thin;
-    border: white solid 2px;
-  }
-  .appointmentContainer {
-    display: flex; /* Use flexbox to layout children */
-    flex-direction: column; /* Stack children vertically */
-    align-items: center; /* Center children horizontally */
-    width: 100vw;
-    height: 100vh;
-    background-color: #000;
-    overflow: hidden;
-  }
-  .purpose_notes_box {
-    align-self: center;
-    width: 350px;
-    height: 30px;
-    border: 1px solid #fff;
-  }
+  display: flex;
+  flex-direction: column; /* Allows the app to grow and fill available space */
+  max-width: 700px; /* Full width */
+  min-width: 350px;
+  width: 100vw;
+  height: 100vh; /* Full height */
+  padding: 20px; /* Padding on all sides */
+  overflow: auto;
+  scrollbar-width: thin;
+  align-content: center;
+}
+.appointmentContainer {
+  display: flex; /* Use flexbox to layout children */
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center children horizontally */
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  overflow: hidden;
+}
+.purpose_notes_box {
+  display: flex;
+  align-self: center;
+  min-width: 350px;
+}
+
+.purpose_notes {
+  display: flex;
+  flex-direction: column; /* Allows the app to grow and fill available space */
+  max-width: 700px; /* Full width */
+  min-width: 350px;
+  padding: 20px; /* Padding on all sides */
+  overflow: auto;
+  scrollbar-width: thin;
+}
+
+.purpose_notes_text {
+  color: #fff;
+  font-weight: 600;
+}
+
+.purpose_notes_input {
+  color: #fff;
+  background-color: #00000000;
+  border: 2px solid #fff;
+  border-radius: 5px;
+  padding: 10px; /* Maintain the width of the container */
+  height: 200px; /* Set a fixed height of 200px */
+  overflow-y: auto; /* Allow vertical scroll if content exceeds the height */
+  resize: none; /* Prevent resizing of the textarea */
+  transition: border-color 0.25s ease;
+}
+.purpose_notes_input:focus {
+  border: 1px solid;
+  border-color: #ff000060; /* Change outer border color when focused */
+  outline: 2px solid #ff444460; /* Change outline color when focused */
+  margin: 2px 0 2px 1px;
+}
+
+.appointment_email_input {
+  color: #fff;
+  background-color: #00000000;
+  border: 2px solid #fff;
+  border-radius: 5px;
+  padding: 10px; /* Maintain the width of the container */
+  overflow-y: auto; /* Allow vertical scroll if content exceeds the height */
+  resize: none; /* Prevent resizing of the textarea */
+  transition: border-color 0.25s ease;
+  margin: 1em 0 0 0;
+}
+
+.appointment_email_input:focus {
+  border: 1px solid;
+  border-color: #ff000060; /* Change outer border color when focused */
+  outline: 2px solid #ff444460; /* Change outline color when focused */
+  margin: calc( 1em  + 1px) 0 0 1px;
+}
+
+.submit_button_box{
+  display: flex;
+  width: "100%";
+  margin: 1em 0 0 0;
+  justify-content: flex-end;
+}
+.submit_button {
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  background-color: #00000000;
+  border: 2px solid #fff;
+  border-radius: 12px;
+  padding: 5px 7px 5px 7px;
+  transition: background-color 0.25s ease-in-out;
+}
+
+.submit_button:hover {
+  background-color: #ff000060;
+}
+

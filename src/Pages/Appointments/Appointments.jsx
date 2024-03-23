@@ -8,6 +8,8 @@ import { addYears } from "date-fns";
 const Appointments = () => {
   const [selectedDay, setSelectedDay] = useState(undefined);
   const [selectedTime, setSelectedTime] = useState(undefined);
+  const [purpose, setPurpose] = useState(undefined);
+  const [email, setEmail] = useState(undefined);
   const [disabledDays, setDisabledDays] = useState(undefined);
   // Function to generate an array of dates that are Tuesday, Thursday, or Saturday within a specified range
 
@@ -116,7 +118,29 @@ const Appointments = () => {
           footer={selectedDay !== undefined ? timeTable : <></>}
         />
 
-        <div className="purpose_notes_box"></div>
+        {selectedTime !== undefined && selectedDay !== undefined ? (
+          <div className="purpose_notes_box">
+            <div className="purpose_notes">
+              <p className="purpose_notes_text">Purpose of Appointment:</p>
+              <textarea
+                className="purpose_notes_input"
+                placeholder="Please provide a brief description of what you are looking to discuss."
+                onChange={(e) => setPurpose(e.target.value)}
+              />
+              <input
+                className="appointment_email_input"
+                type="email"
+                placeholder="your@email.com"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <div className="submit_button_box">
+                <button className="submit_button">Submit</button>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );
