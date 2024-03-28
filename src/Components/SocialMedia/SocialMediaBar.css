@@ -28,12 +28,17 @@
   border: 2px solid transparent; /* Start with a transparent border */
   border-radius: 20%; /* Create a circular shape */
 
+
   justify-items: center;
   align-items: center;
 }
 .social:hover {
-  animation: radial-animation 1.5s forwards ease-in-out;
+  animation: radial-animation 1.5s forwards; 
 }
+.social:not(:hover) {
+  animation: radial-animation-reverse .25s forwards;  
+}
+
 
 @keyframes radial-animation {
   0% {
@@ -52,3 +57,21 @@
     border-color: #ff0000; /* Set color for left border */
   }
 }
+@keyframes radial-animation-reverse {
+  100% {
+    border-color: transparent;
+  }
+  70% {
+    border-top-color: #ff0000; /* Set color for top border */
+  }
+  50% {
+    border-right-color: #ff0000; /* Set color for right border */
+  }
+  40% {
+    border-bottom-color: #ff0000; /* Set color for bottom border */
+  }
+  0% {
+    border-color: #ff0000; /* Set color for left border */
+  }
+}
+
