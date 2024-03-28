@@ -1,0 +1,13 @@
+.fade-in-title {
+    overflow: hidden;
+  }
+  
+  .fade-in-name {
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
+  
+  .fade-in-name-animation {
+    opacity: 1;
+  }
+  

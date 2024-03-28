@@ -1,0 +1,14 @@
+.fade-in-container {
+  overflow: hidden;
+}
+
+.fade-in-text {
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 1s ease, transform 1.25s ease;
+}
+
+.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}

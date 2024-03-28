@@ -9,15 +9,46 @@
   gap: 15px;
 }
 
-.socialBar a {
-    display: inline-block; /* Ensures the anchor tag behaves like a block element */
-    height: 30px;
-    width: 30px;
-    
+.social a img {
+  height: 100%; /* Set the height of the image to fill the height of the anchor tag */
+  width: 100%; /* Set the width of the image to fill the width of the anchor tag */
+  object-fit: cover; /* Ensures the image covers the entire area of the anchor tag */
 }
 
-.socialBar a img {
-    height: 100%; /* Set the height of the image to fill the height of the anchor tag */
-    width: 100%; /* Set the width of the image to fill the width of the anchor tag */
-    object-fit: cover; /* Ensures the image covers the entire area of the anchor tag */
+.social a {
+  display: inline-block; /* Ensures the anchor tag behaves like a block element */
+  height: 30px;
+  width: 30px;
+}
+.social {
+  height: 30px;
+  width: 30px;
+  padding: 2px;
+
+  border: 2px solid transparent; /* Start with a transparent border */
+  border-radius: 20%; /* Create a circular shape */
+
+  justify-items: center;
+  align-items: center;
+}
+.social:hover {
+  animation: radial-animation 1.5s forwards ease-in-out;
+}
+
+@keyframes radial-animation {
+  0% {
+    border-color: transparent;
+  }
+  40% {
+    border-top-color: #ff0000; /* Set color for top border */
+  }
+  50% {
+    border-right-color: #ff0000; /* Set color for right border */
+  }
+  70% {
+    border-bottom-color: #ff0000; /* Set color for bottom border */
+  }
+  100% {
+    border-color: #ff0000; /* Set color for left border */
+  }
 }

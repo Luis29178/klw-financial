@@ -1,13 +1,21 @@
-.bio {
+.bio_text {
   color: #fff; /* Change the text color */
   font-size: 13px; /* Set the font size */
   line-height: 1.5; /* Adjust line height for better readability */
-  margin: 0px 20px 0px 20px; /* Add some margin above and below the paragraph */
-  width: 85%;
+  margin: 0px 40px 0px 40px; /* Add some margin above and below the paragraph */
   text-align: justify; /* Justify the text for a cleaner look */
   font-family: "Poppins", sans-serif;
   align-self: center;
+  justify-self: center;
+  box-sizing: border-box;
+  text-wrap: word-overflow;
 }
+.bio_container {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .name {
   font-size: 42px; /* Large text size */
   color: #fff; /* Dark text color for contrast */
@@ -20,7 +28,7 @@
 .pfp {
   border-radius: 50%;
   width: 200px;
-  height:200px;
+  height: 200px;
 }
 .pfp-container {
   display: flex;
@@ -37,7 +45,7 @@
   padding: 20px; /* Padding on all sides */
   overflow: auto;
   justify-content: space-between;
-  scrollbar-width:thin;
+  scrollbar-width: thin;
 }
 .appContainer {
   display: flex; /* Use flexbox to layout children */

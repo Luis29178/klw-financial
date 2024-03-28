@@ -14,7 +14,11 @@ export default function HomeListItem({img, index, url, description }) {
         <div className="descContainer">
           <p className="descText">{description}</p>
         </div>
+        
       </a>
+      <div className="bottom_border_container">
+      <div className="bottom_border"/>
+      </div>
     </div>
   );
 }

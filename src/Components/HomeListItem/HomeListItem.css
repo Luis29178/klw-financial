@@ -1,6 +1,7 @@
 .listItem {
   display: flex; /* Establishes a flex container */
   border-bottom: 1px solid;
+  flex-direction: column;
   
 }
 .linkBtn {
@@ -34,3 +35,20 @@
   color: #fff;
   font-family: "Poppins", sans-serif;
   font-size: 16px; }
+
+  .bottom_border_container{
+    display: flex;
+    width:100%;
+    flex-direction: row-reverse;
+  }
+
+  .bottom_border{
+    height:2px;
+    width:0%;
+    background-color: #f00;
+    transition: width 0.35s ease-in-out;
+  }
+
+  .listItem:hover .bottom_border {
+    width: 95%; /* Change width to 95% on hover */
+  }
