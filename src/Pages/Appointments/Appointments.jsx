@@ -45,7 +45,6 @@ const Appointments = () => {
   };
 
   const resetSelections = () => {
-    console.log("reset triggerd");
     setSelectedTime(undefined);
     setPurpose(undefined);
   };
@@ -57,19 +56,11 @@ const Appointments = () => {
   }, []);
 
   useEffect(() => {
-    console.log(
-      selectedDay !== undefined
-        ? `Day: ${selectedDay.toDateString()}`
-        : "Day: undefined"
-    );
-
     selectedDay !== undefined && selectedDayRef !== undefined
       ? (() => {
           selectedDay.toDateString() !== selectedDayRef.toDateString()
             ? setSelectedDayRef(selectedDay)
-            : (() => {
-                console.log(`nochange`);
-              })();
+            : (() => {})();
         })()
       : (() => {
           selectedDay !== undefined
@@ -79,13 +70,6 @@ const Appointments = () => {
   }, [selectedDay]);
 
   useEffect(() => {
-    console.log(
-      `DayRef: ${
-        selectedDayRef !== undefined
-          ? selectedDayRef.toDateString()
-          : "undefined"
-      }`
-    );
     resetSelections();
   }, [selectedDayRef]);
 
@@ -126,8 +110,6 @@ const Appointments = () => {
                   selectedTime !== item
                     ? setSelectedTime(item)
                     : setSelectedTime(undefined);
-
-                  console.log(`selected day ${item} `);
                 }}
               >
                 {item}
