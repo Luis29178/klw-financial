@@ -3,10 +3,11 @@ import "./Appointments.css";
 import { DayPicker } from "react-day-picker";
 import "../../Components/Calender/DayPickerStyles.css";
 
-import { addYears } from "date-fns";
+import { addYears, setDay } from "date-fns";
 
 const Appointments = () => {
   const [selectedDay, setSelectedDay] = useState(undefined);
+  const [selectedDayRef, setSelectedDayRef] = useState(undefined);
   const [selectedTime, setSelectedTime] = useState(undefined);
   const [purpose, setPurpose] = useState(undefined);
   const [email, setEmail] = useState(undefined);
@@ -43,6 +44,12 @@ const Appointments = () => {
     return targetDaysArray;
   };
 
+  const resetSelections = () => {
+    console.log("reset triggerd");
+    setSelectedTime(undefined);
+    setPurpose(undefined);
+  };
+
   useEffect(() => {
     // Generate targetDaysArray and disabledDays
     const targetDaysArray = generateTargetDaysArray();
@@ -50,8 +57,37 @@ const Appointments = () => {
   }, []);
 
   useEffect(() => {
-    console.log(selectedDay);
+    console.log(
+      selectedDay !== undefined
+        ? `Day: ${selectedDay.toDateString()}`
+        : "Day: undefined"
+    );
+
+    selectedDay !== undefined && selectedDayRef !== undefined
+      ? (() => {
+          selectedDay.toDateString() !== selectedDayRef.toDateString()
+            ? setSelectedDayRef(selectedDay)
+            : (() => {
+                console.log(`nochange`);
+              })();
+        })()
+      : (() => {
+          selectedDay !== undefined
+            ? setSelectedDayRef(selectedDay)
+            : (() => {})();
+        })();
   }, [selectedDay]);
+
+  useEffect(() => {
+    console.log(
+      `DayRef: ${
+        selectedDayRef !== undefined
+          ? selectedDayRef.toDateString()
+          : "undefined"
+      }`
+    );
+    resetSelections();
+  }, [selectedDayRef]);
 
   const timeTable = (
     <div className="time_table">
@@ -68,8 +104,6 @@ const Appointments = () => {
                   selectedTime !== item
                     ? setSelectedTime(item)
                     : setSelectedTime(undefined);
-
-                  console.log(`selected day ${item}`);
                 }}
               >
                 {item}
@@ -123,14 +157,16 @@ const Appointments = () => {
             <div className="purpose_notes">
               <p className="purpose_notes_text">Purpose of Appointment:</p>
               <textarea
+                value={purpose}
                 className="purpose_notes_input"
                 placeholder="Please provide a brief description of what you are looking to discuss."
                 onChange={(e) => setPurpose(e.target.value)}
               />
               <input
+                value={email}
                 className="appointment_email_input"
                 type="email"
-                placeholder="your@email.com"
+                placeholder="you@email.com"
                 onChange={(e) => setEmail(e.target.value)}
               />
               <div className="submit_button_box">

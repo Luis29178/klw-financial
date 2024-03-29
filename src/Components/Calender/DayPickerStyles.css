@@ -6,11 +6,14 @@
   --rdp-accent-color-dark: #ff000036; /* Accent color for the background of selected days (to use in dark-mode). */
   --rdp-background-color-dark: #ff000036; /* Background color for the hovered/focused elements (to use in dark-mode). */
   --rdp-outline: 2px solid var(--rdp-accent-color); /* Outline border for focused elements */
-  --rdp-outline-selected: 3px solid var(--rdp-accent-color); /* Outline border for focused _and_ selected elements */
+  --rdp-outline-selected: 2px solid var(--rdp-accent-color); /* Outline border for focused _and_ selected elements */
+
+  --rdp-outline-selected-hover:  3px solid var(--rdp-accent-color);
   --rdp-selected-color: #fff; /* Color of selected day text */
   --rdp-selected-color-bg: #ff000000;
   align-self: center;
   margin: 1em 2em 0 2em;
+  font-family: "Poppins", sans-serif;
 }
 
 /* Hide elements for devices that are not screen readers */
@@ -55,6 +58,7 @@
 
 .rdp-button {
   border: 2px solid transparent;
+  transition: background-color 0.25s ease-in-out;
 }
 
 .rdp-button[disabled]:not(.rdp-day_selected) {
@@ -272,12 +276,17 @@
 }
 
 .rdp-day_selected,
-.rdp-day_selected:focus-visible,
-.rdp-day_selected:hover {
+.rdp-day_selected:focus-visible {
   color: var(--rdp-selected-color);
   background-color: var(--rdp-selected-color-bg);
   opacity: 1;
   border: var(--rdp-outline-selected);
+  transition: background-color .25s ease-in-out;
+}
+
+.rdp-day_selected:hover {
+  background-color: var(--rdp-background-color);
+
 }
 
 .rdp-day_outside {
@@ -336,23 +345,21 @@
 }
 
 .time_text {
-  font-size: 14px;
+  font-size: 13px;
   border: var(--rdp-outline);
   border-radius: 10px;
   padding: 0.25em 0.5em 0.25em 0.5em;
-  font-weight: 600;
+  font-weight: 400; 
+  text-align: center;
   margin: 0.5em 0 0.5em 0;
+  transition: background-color .25s ease-in-out;
 }
 .time_text:hover {
-  font-size: 14px;
-  border: var(--rdp-outline);
-  border-width: 3px;
-  margin: calc(0.5em - 1px) 0 calc(0.5em - 1px) 0;
-  text-align: center;
+  background-color: var(--rdp-background-color);
 }
 
 .time_text_selected {
-  font-size: 14px;
+  font-size: 13px;
   border: var(--rdp-outline);
   border-width: 3px;
   border-radius: 10px;
@@ -360,4 +367,9 @@
   padding: 0.25em 0.5em 0.25em 0.5em;
   margin: calc(0.5em - 1px) 0 calc(0.5em - 1px) 0;
   text-align: center;
+  transition: background-color .25s ease-in-out;
+}
+
+.time_text_selected:hover {
+  background-color: var(--rdp-background-color);
 }

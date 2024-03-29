@@ -45,7 +45,7 @@
   .bottom_border{
     height:2px;
     width:0%;
-    background-color: #f00;
+    background-color: #ff000060;
     transition: width 0.35s ease-in-out;
   }
 
