@@ -17,9 +17,9 @@ const Appointments = () => {
   const tempHours = [
     "10:00am - 11:00am",
     "11:30am - 12:30pm",
-    "01:00pm - 02:00pm",
-    "02:30pm - 03:30pm",
-    "04:00pm - 05:00pm",
+    "1:00pm - 2:00pm",
+    "2:30pm - 3:30pm",
+    "4:00pm - 5:00pm",
   ];
   const generateTargetDaysArray = () => {
     const startDate = new Date(); // Start date (today)

@@ -8,6 +8,7 @@
   padding: 20px; /* Padding on all sides */
   overflow: auto;
   scrollbar-width: thin;
+  overflow-y: overlay;
   align-content: center;
 }
 .appointmentContainer {
@@ -37,7 +38,7 @@
 
 .purpose_notes_text {
   color: #fff;
-  font-weight: 600;
+  font-family: "Poppins", sans-serif;
 }
 
 .purpose_notes_input {
@@ -50,6 +51,7 @@
   overflow-y: auto; /* Allow vertical scroll if content exceeds the height */
   resize: none; /* Prevent resizing of the textarea */
   transition: border-color 0.25s ease;
+  font-family: "Poppins", sans-serif;
 }
 .purpose_notes_input:focus {
   border: 1px solid;
@@ -68,6 +70,7 @@
   resize: none; /* Prevent resizing of the textarea */
   transition: border-color 0.25s ease;
   margin: 1em 0 0 0;
+  font-family: "Poppins", sans-serif;
 }
 
 .appointment_email_input:focus {
@@ -84,13 +87,14 @@
   justify-content: flex-end;
 }
 .submit_button {
+  font-family: "Poppins", sans-serif;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 400;
   color: #fff;
   background-color: #00000000;
   border: 2px solid #fff;
   border-radius: 12px;
-  padding: 5px 7px 5px 7px;
+  padding: 2px 7px 2px 7px;
   transition: background-color 0.25s ease-in-out;
 }
 

@@ -353,6 +353,7 @@
   text-align: center;
   margin: 0.5em 0 0.5em 0;
   transition: background-color .25s ease-in-out;
+  width: 85%;
 }
 .time_text:hover {
   background-color: var(--rdp-background-color);
@@ -368,6 +369,7 @@
   margin: calc(0.5em - 1px) 0 calc(0.5em - 1px) 0;
   text-align: center;
   transition: background-color .25s ease-in-out;
+  width: 85%;
 }
 
 .time_text_selected:hover {
