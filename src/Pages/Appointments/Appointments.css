@@ -102,3 +102,12 @@
   background-color: #ff000036;
 }
 
+@keyframes flashRedWhite {
+  25%, 75% { border-color: #ff000036; }
+  0%, 50%, 100% { border-color:  white; }
+}
+
+.input-invalid {
+  animation: flashRedWhite 1s linear;
+}
+

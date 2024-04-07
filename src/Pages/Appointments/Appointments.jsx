@@ -9,9 +9,11 @@ const Appointments = () => {
   const [selectedDay, setSelectedDay] = useState(undefined);
   const [selectedDayRef, setSelectedDayRef] = useState(undefined);
   const [selectedTime, setSelectedTime] = useState(undefined);
-  const [purpose, setPurpose] = useState(undefined);
-  const [email, setEmail] = useState(undefined);
+  const [purpose, setPurpose] = useState("");
+  const [email, setEmail] = useState("");
   const [disabledDays, setDisabledDays] = useState(undefined);
+  const [purposeValid, setPurposeValid] = useState(true);
+  const [emailValid, setEmailValid] = useState(true);
   // Function to generate an array of dates that are Tuesday, Thursday, or Saturday within a specified range
 
   const tempHours = [
@@ -46,7 +48,6 @@ const Appointments = () => {
 
   const resetSelections = () => {
     setSelectedTime(undefined);
-    setPurpose(undefined);
   };
 
   useEffect(() => {
@@ -122,6 +123,46 @@ const Appointments = () => {
     </div>
   );
 
+  function isValidEmailFormat(email) {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    var passFormat =  regex.test(email) === true ? true : false;
+
+    //TODO: add Varification steps tusing jsEmail and firebase 
+
+    return passFormat
+  }
+
+  
+
+  const SubmitAction = () => {
+    var passPurpose = false;
+    var passEmail = false;
+
+    if (purpose !== "") {
+      passPurpose = true;
+    }
+    if (email !== "") {
+      passEmail = isValidEmailFormat(email);
+    }
+
+    setPurposeValid(passPurpose); // Update state based on validation
+    setEmailValid(passEmail);
+
+    if (!passEmail || !passPurpose) {
+      // If validation fails, trigger flashing for 0.5 seconds
+      if (!passPurpose) {
+        setTimeout(() => setPurposeValid(true), 1000); // Reset after 0.5s
+      }
+      if (!passEmail) {
+        setTimeout(() => setEmailValid(true), 1000); // Reset after 0.5s
+      }
+      return; // Exit if validation fails
+    }
+    if (passEmail === true && passPurpose === true) {
+      console.log(selectedDay, selectedTime, purpose, email);
+    }
+  };
+
   return (
     <div className="appointmentContainer">
       <div className="appointment">
@@ -140,19 +181,28 @@ const Appointments = () => {
               <p className="purpose_notes_text">Purpose of Appointment:</p>
               <textarea
                 value={purpose}
-                className="purpose_notes_input"
+                className={`purpose_notes_input ${
+                  !purposeValid ? "input-invalid" : ""
+                }`}
                 placeholder="Please provide a brief description of what you are looking to discuss."
                 onChange={(e) => setPurpose(e.target.value)}
               />
               <input
                 value={email}
-                className="appointment_email_input"
+                className={`appointment_email_input ${
+                  !emailValid ? "input-invalid" : ""
+                }`}
                 type="email"
                 placeholder="you@email.com"
                 onChange={(e) => setEmail(e.target.value)}
               />
               <div className="submit_button_box">
-                <button className="submit_button">Submit</button>
+                <button
+                  onClick={() => SubmitAction()}
+                  className="submit_button"
+                >
+                  Submit
+                </button>
               </div>
             </div>
           </div>
