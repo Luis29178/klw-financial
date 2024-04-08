@@ -77,10 +77,10 @@
   border: 1px solid;
   border-color: #ff000060; /* Change outer border color when focused */
   outline: 2px solid #ff444460; /* Change outline color when focused */
-  margin: calc( 1em  + 1px) 0 0 1px;
+  margin: calc(1em + 1px) 0 0 1px;
 }
 
-.submit_button_box{
+.submit_button_box {
   display: flex;
   width: "100%";
   margin: 1em 0 0 0;
@@ -103,11 +103,63 @@
 }
 
 @keyframes flashRedWhite {
-  25%, 75% { border-color: #ff000036; }
-  0%, 50%, 100% { border-color:  white; }
+  25%,
+  75% {
+    border-color: #ff000036;
+  }
+  0%,
+  50%,
+  100% {
+    border-color: white;
+  }
 }
 
 .input-invalid {
   animation: flashRedWhite 1s linear;
 }
 
+.first_name {
+  color: #fff;
+  background-color: #00000000;
+  border: 2px solid #fff;
+  border-radius: 5px;
+  padding: 10px; /* Maintain the width of the container */
+  overflow-y: auto; /* Allow vertical scroll if content exceeds the height */
+  resize: none; /* Prevent resizing of the textarea */
+  transition: border-color 0.25s ease;
+  margin: 1em 0 0 0;
+  font-family: "Poppins", sans-serif;
+}
+
+.last_name {
+  color: #fff;
+  background-color: #00000000;
+  border: 2px solid #fff;
+  border-radius: 5px;
+  padding: 10px; /* Maintain the width of the container */
+  overflow-y: auto; /* Allow vertical scroll if content exceeds the height */
+  resize: none; /* Prevent resizing of the textarea */
+  transition: border-color 0.25s ease;
+  margin: 1em 0 0 0;
+  font-family: "Poppins", sans-serif;
+}
+
+.last_name:focus {
+  border: 1px solid;
+  border-color: #ff000060; /* Change outer border color when focused */
+  outline: 2px solid #ff444460; /* Change outline color when focused */
+  margin: calc(1em + 1px) 0 0 1px;
+}
+
+.first_name:focus {
+  border: 1px solid;
+  border-color: #ff000060; /* Change outer border color when focused */
+  outline: 2px solid #ff444460; /* Change outline color when focused */
+  margin: calc(1em + 1px) 0 0 1px;
+}
+
+.name_container {
+  display: flex;
+  gap: 5px;
+  padding-bottom: 10px;
+}

@@ -3,7 +3,10 @@ import "./Appointments.css";
 import { DayPicker } from "react-day-picker";
 import "../../Components/Calender/DayPickerStyles.css";
 
-import { addYears, setDay } from "date-fns";
+import { addYears } from "date-fns";
+import { addAppointment } from "../../FireBaseAPIs/firestoreAPI";
+
+//TODO: Add prompt for birth Day and push to database
 
 const Appointments = () => {
   const [selectedDay, setSelectedDay] = useState(undefined);
@@ -14,6 +17,10 @@ const Appointments = () => {
   const [disabledDays, setDisabledDays] = useState(undefined);
   const [purposeValid, setPurposeValid] = useState(true);
   const [emailValid, setEmailValid] = useState(true);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [firstNameValid, setFirstNameValid] = useState(true);
+  const [lastNameValid, setLastNameValid] = useState(true);
   // Function to generate an array of dates that are Tuesday, Thursday, or Saturday within a specified range
 
   const tempHours = [
@@ -125,18 +132,18 @@ const Appointments = () => {
 
   function isValidEmailFormat(email) {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    var passFormat =  regex.test(email) === true ? true : false;
+    var passFormat = regex.test(email) === true ? true : false;
 
-    //TODO: add Varification steps tusing jsEmail and firebase 
+    //TODO: add Varification steps tusing jsEmail and firebase
 
-    return passFormat
+    return passFormat;
   }
 
-  
-
-  const SubmitAction = () => {
+  const SubmitAction = async () => {
     var passPurpose = false;
     var passEmail = false;
+    var passFName = false;
+    var passLName = false;
 
     if (purpose !== "") {
       passPurpose = true;
@@ -144,9 +151,17 @@ const Appointments = () => {
     if (email !== "") {
       passEmail = isValidEmailFormat(email);
     }
+    if (firstName !== "") {
+      passFName = true;
+    }
+    if (lastName !== "") {
+      passLName = true;
+    }
 
     setPurposeValid(passPurpose); // Update state based on validation
     setEmailValid(passEmail);
+    setFirstNameValid(passFName);
+    setLastNameValid(passLName);
 
     if (!passEmail || !passPurpose) {
       // If validation fails, trigger flashing for 0.5 seconds
@@ -156,11 +171,56 @@ const Appointments = () => {
       if (!passEmail) {
         setTimeout(() => setEmailValid(true), 1000); // Reset after 0.5s
       }
+
+      if (!passFName) {
+        setTimeout(() => setFirstNameValid(true), 1000); // Reset after 0.5s
+      }
+      if (!passLName) {
+        setTimeout(() => setLastNameValid(true), 1000); // Reset after 0.5s
+      }
       return; // Exit if validation fails
     }
     if (passEmail === true && passPurpose === true) {
-      console.log(selectedDay, selectedTime, purpose, email);
+      await generateAppointment();
     }
+  };
+
+  const generateAppointment = async () => {
+    const appointmentDocument = {
+      name: `${firstName} ${lastName}`.trimEnd(),
+      email: email, // Assuming 'email' is already defined
+      purpose: purpose, // Assuming 'purpose' is already defined
+      date: selectedDay.toLocaleDateString("en-US", {
+        month: "long",
+        day: "numeric",
+      }), // Current date-time in ISO format
+      time: selectedTime,
+      status: "pending", // Initial status
+    };
+
+    let docID = generateUserCode();
+
+    await addAppointment(docID, appointmentDocument);
+  };
+
+  const generateUserCode = () => {
+    const FLChars = firstName[0] + lastName[0];
+
+    const day = selectedDay.getDate(); // Day of the month
+    const month = selectedDay.getMonth() + 1; // Month (0-11, so add 1 to get 1-12)
+
+    
+    const birthYear = "2024";
+
+    // Format day and month with leading zeros if necessary
+    const formattedDay = day < 10 ? "0" + day : day;
+    const formattedMonth = month < 10 ? "0" + month : month;
+
+    // Generate a 6-digit random number
+    const numberCode = formattedDay+formattedMonth+birthYear;
+
+    // Concatenate and return the code
+    return FLChars + numberCode;
   };
 
   return (
@@ -179,6 +239,24 @@ const Appointments = () => {
           <div className="purpose_notes_box">
             <div className="purpose_notes">
               <p className="purpose_notes_text">Purpose of Appointment:</p>
+              <div className="name_container">
+                <input
+                  value={firstName}
+                  className={`first_name ${
+                    !firstNameValid ? "input-invalid" : ""
+                  }`}
+                  placeholder="First Name"
+                  onChange={(e) => setFirstName(e.target.value)}
+                />
+                <input
+                  value={lastName}
+                  className={`last_name ${
+                    !lastNameValid ? "input-invalid" : ""
+                  }`}
+                  placeholder="Last Name"
+                  onChange={(e) => setLastName(e.target.value)}
+                />
+              </div>
               <textarea
                 value={purpose}
                 className={`purpose_notes_input ${
