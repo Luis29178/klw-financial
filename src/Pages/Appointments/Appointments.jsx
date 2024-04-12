@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Appointments.css";
 import { DayPicker } from "react-day-picker";
 import "../../Components/Calender/DayPickerStyles.css";
+import emailjs from "emailjs-com";
 
 import { addYears } from "date-fns";
 import { addAppointment } from "../../FireBaseAPIs/firestoreAPI";
@@ -186,6 +187,37 @@ const Appointments = () => {
   };
 
   const generateAppointment = async () => {
+    const sendCodeToUser = (docID) => {
+      const emailData = {
+        to_email: email,
+        doc_id: docID,
+      };
+
+      sendEmailDirectly(emailData);
+    };
+    const sendEmailDirectly = (emailData) => {
+
+      emailjs
+        .send(
+          'service_n3f8s79',
+          "template_75sjxx1",
+          emailData,
+          process.env.REACT_APP_EMAILJS_PUBLIC_ID
+
+        )
+        .then(
+          (response) => {
+            console.log("Email successfully sent!", response.text);
+            // Handle success scenario (e.g., showing a success message)
+          },
+          (error) => {
+            console.log("Failed to send email:", error.text);
+
+            // Handle error scenario (e.g., showing an error message)
+          }
+        );
+    };
+
     const appointmentDocument = {
       name: `${firstName} ${lastName}`.trimEnd(),
       email: email, // Assuming 'email' is already defined
@@ -195,12 +227,14 @@ const Appointments = () => {
         day: "numeric",
       }), // Current date-time in ISO format
       time: selectedTime,
-      status: "pending", // Initial status
+      confirmed: false, // Initial status
     };
 
     let docID = generateUserCode();
 
     await addAppointment(docID, appointmentDocument);
+
+    sendCodeToUser(docID);
   };
 
   const generateUserCode = () => {
@@ -209,7 +243,6 @@ const Appointments = () => {
     const day = selectedDay.getDate(); // Day of the month
     const month = selectedDay.getMonth() + 1; // Month (0-11, so add 1 to get 1-12)
 
-    
     const birthYear = "2024";
 
     // Format day and month with leading zeros if necessary
@@ -217,7 +250,7 @@ const Appointments = () => {
     const formattedMonth = month < 10 ? "0" + month : month;
 
     // Generate a 6-digit random number
-    const numberCode = formattedDay+formattedMonth+birthYear;
+    const numberCode = formattedDay + formattedMonth + birthYear;
 
     // Concatenate and return the code
     return FLChars + numberCode;
