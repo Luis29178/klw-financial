@@ -8,6 +8,7 @@ import {
 import Home from "./Pages/Home/Home";
 import Appointments from "./Pages/Appointments/Appointments";
 import NotFound from "./Pages/Other/NotFound";
+import Confirmation from "./Pages/Confirmation/Confirmation";
 
 export const Routes = () => {
   return (
@@ -15,6 +16,7 @@ export const Routes = () => {
       <Switch>
         <Route exact path="/" element={<Home />} />
         <Route path="/appointments" element={<Appointments />} />
+        <Route path="/confirm-appointment" element={<Confirmation />} />
         <Route path="*" element={<NotFound />} />
       </Switch>
     </Router>

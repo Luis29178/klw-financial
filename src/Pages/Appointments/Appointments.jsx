@@ -164,23 +164,24 @@ const Appointments = () => {
     setFirstNameValid(passFName);
     setLastNameValid(passLName);
 
-    if (!passEmail || !passPurpose) {
+    if (!passEmail || !passPurpose || !passFName || !passLName) {
       // If validation fails, trigger flashing for 0.5 seconds
       if (!passPurpose) {
-        setTimeout(() => setPurposeValid(true), 1000); // Reset after 0.5s
+        setTimeout(() => setPurposeValid(true), 1000);
       }
       if (!passEmail) {
-        setTimeout(() => setEmailValid(true), 1000); // Reset after 0.5s
+        setTimeout(() => setEmailValid(true), 1000); 
       }
 
       if (!passFName) {
-        setTimeout(() => setFirstNameValid(true), 1000); // Reset after 0.5s
+        setTimeout(() => setFirstNameValid(true), 1000); 
       }
       if (!passLName) {
-        setTimeout(() => setLastNameValid(true), 1000); // Reset after 0.5s
+        setTimeout(() => setLastNameValid(true), 1000); 
       }
       return; // Exit if validation fails
     }
+
     if (passEmail === true && passPurpose === true) {
       await generateAppointment();
     }
@@ -193,9 +194,9 @@ const Appointments = () => {
         doc_id: docID,
       };
 
-      sendEmailDirectly(emailData);
+      sendUserEmail(emailData);
     };
-    const sendEmailDirectly = (emailData) => {
+    const sendUserEmail = (emailData) => {
 
       emailjs
         .send(

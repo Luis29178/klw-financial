@@ -7,10 +7,24 @@ import {
   deleteDoc,
   setDoc,
   doc,
+  getDoc,
 } from "firebase/firestore";
+
+const checkDocumentExistence = async (code) => {
+  try {
+    const appointmentRef = doc(db, "Appointments", code);
+      const appointmentSnap = await getDoc(appointmentRef);
+      return appointmentSnap.exists();
+  } catch (error) {
+      console.error("Error checking document existence:", error);
+      return false;
+  }
+};
+
 
 const addDocument = async (collectionName, newDocument) => {
   try {
+    
     const docRef = await addDoc(collection(db, collectionName), newDocument);
     console.log("Document written with ID: ", docRef.id);
   } catch (e) {
@@ -19,10 +33,8 @@ const addDocument = async (collectionName, newDocument) => {
 };
 
 const addAppointment = async (documentId, AppointmentData) => {
-  // const db = db.firestore();  
-
   try {
-    const docRef = doc(db, 'Appointments', documentId);
+    const docRef = doc(db, "Appointments", documentId);
     await setDoc(docRef, AppointmentData);
     console.log("Document written with custom ID: ", documentId);
   } catch (e) {
@@ -61,4 +73,11 @@ const deleteDocument = async (collectionName, docId) => {
   }
 };
 
-export { addDocument, getAllDocuments, updateDocument, deleteDocument, addAppointment};
+export {
+  addDocument,
+  getAllDocuments,
+  updateDocument,
+  deleteDocument,
+  checkDocumentExistence,
+  addAppointment,
+};

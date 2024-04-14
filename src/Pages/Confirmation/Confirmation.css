@@ -1,0 +1,170 @@
+.confirmation-message-container {
+    width: 100vw;
+    max-width: 700px;
+    min-width: 350px;
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    margin: 0 auto; /* Horizontally center the container */
+  }
+  
+  .confirmation-message {
+    display: flex;
+    height: fit-content;
+    width: fit-content;
+    color: #000;
+    font-family: "Poppins", sans-serif;
+    animation: slide 1s ease-out forwards;
+  }
+  
+  .confirm {
+    display: flex;
+    flex-direction: column; /* Allows the app to grow and fill available space */
+    max-width: 600px; /* Full width */
+    min-width: 350px;
+    padding: 20px; /* Padding on all sides */
+    overflow: auto;
+    scrollbar-width: thin;
+    overflow-y: overlay;
+    align-content: center;
+    height: 100vh;
+  }
+  
+  .confirmContainer {
+    display: flex; /* Use flexbox to layout children */
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center children horizontally */
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    overflow: hidden;
+  }
+  
+  .confirm_code {
+    display: flex;
+    align-self: center;
+    min-width: 350px;
+    justify-content: center;
+  }
+  
+  .confirm_code_wrapper {
+    display: flex;
+    flex-direction: column; /* Allows the app to grow and fill available space */
+    max-width: 700px; /* Full width */
+    min-width: 350px;
+    height: 40vh;
+    padding: 20px; /* Padding on all sides */
+    overflow: none;
+    justify-content: end;
+  }
+  
+  .input {
+    color: #fff;
+    background-color: #00000000;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    padding: 10px; /* Maintain the width of the container */
+    height: 30px; /* Set a fixed height */
+    resize: none; /* Prevent resizing of the textarea */
+    transition: border-color 0.25s ease;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  .input:focus {
+    border: 1px solid;
+    border-color: #ff000060; /* Change outer border color when focused */
+    outline: 2px solid #ff444460; /* Change outline color when focused */
+  }
+  .input-invalid {
+    animation: flashRedWhite 1s linear;
+  }
+  
+  .message {
+    margin-top: 20px;
+    font-size: 12px;
+    margin-bottom: 15px;
+    text-align: center;
+    color: #fff;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  .submit_button_box {
+    display: flex;
+    width: 100%; /* Remove quotes */
+    margin: 1em 0 0 0;
+    justify-content: flex-end;
+  }
+  
+  .submit_button {
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 12px;
+    padding: 2px 7px 2px 7px;
+    transition: background-color 0.25s ease-in-out;
+    outline: none;
+  }
+  
+  .submit_button:hover {
+    background-color: #ff000036;
+  }
+  
+  .loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent gray overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .loading-circle {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #fff; /* White border */
+    border-radius: 50%; /* Circular shape */
+    border-top: 4px solid transparent; /* Hide top border to create loading animation */
+    animation: spin 1s linear infinite; /* Rotation animation */
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .delayed {
+    animation-delay: 1s; /* Delay the animation by 1 second */
+  }
+  
+  @keyframes slide {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0%);
+      color: #fff;
+    }
+  }
+  
+  @keyframes flashRedWhite {
+    25%,
+    75% {
+      border-color: #ff000036;
+    }
+    0%,
+    50%,
+    100% {
+      border-color: white;
+    }
+  }
