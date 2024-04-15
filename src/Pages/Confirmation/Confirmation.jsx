@@ -6,6 +6,10 @@ import {
 } from "../../FireBaseAPIs/firestoreAPI";
 
 import { useNavigate } from "react-router-dom";
+import { sendEmailVerification } from "firebase/auth";
+import emailjs from "emailjs-com";
+
+const DOMPurify = require('dompurify');
 
 const Confirmation = () => {
   const [code, setCode] = useState("");
@@ -36,22 +40,74 @@ const Confirmation = () => {
     }
   }, [confirmed, countdown]);
 
+  const SendConfirmation = (emailData) => {
+    emailjs
+      .send(
+        "service_n3f8s79",
+        "template_eeh0ux4",
+        emailData,
+        process.env.REACT_APP_EMAILJS_PUBLIC_ID
+      )
+      .then(
+        (response) => {
+          console.log("Email successfully sent!", response.text);
+          // Handle success scenario (e.g., showing a success message)
+        },
+        (error) => {
+          console.log("Failed to send email:", error.text);
+
+          // Handle error scenario (e.g., showing an error message)
+        }
+      );
+  };
+  const sendConfirmationEmail = (email, docID) => {
+    const emailData = {
+      to_email: email,
+      subject: "Appointment Confirmation",
+      paragraph_1: `Your appointment with document ID ${docID} has been confirmed.`,
+      title: "Appointment Confirmation",
+      // You can customize the HTML content as needed
+    };
+
+    SendConfirmation(emailData);
+  };
+  const sendAdminAlertEmail = (adminEmail, docID) => {
+
+    const emailData = {
+      to_email: adminEmail,
+      subject: "New Confirmed Appointment Alert",
+      title: "New Confirmed Appointment Alert",
+      paragraph_1: `Your appointment with document ID ${docID} has been confirmed.` ,
+      // You can customize the HTML content as needed
+    };
+    SendConfirmation(emailData);
+  };
+
+  const ConfirmAppointment = (docID) => {
+    const email = "luis29178@gmail.com";
+    const adminEmail = "luis29178@gmail.com";
+    sendConfirmationEmail(email, docID);
+    sendAdminAlertEmail(adminEmail, docID);
+  };
+
   const handleConfirm = async () => {
     if (code.length > 0) {
       setLoading(true);
       let passCheck = await checkDocumentExistence(code);
       setLoading(false);
-    
-    if (passCheck === true && code.length > 9) {
-      await updateDocument("Appointments", code, {
-        confirmed: true,
-      });
+
+      if (passCheck === true && code.length > 9) {
+        await updateDocument("Appointments", code, {
+          confirmed: true,
+        });
+      } else {
+        setUpdatedPass(false);
+        setTimeout(() => setUpdatedPass(true), 1000);
+        return;
+      }
+      ConfirmAppointment(code);
       setConfirmed(true);
-    } else {
-      setUpdatedPass(false);
-      setTimeout(() => setUpdatedPass(true), 1000);
     }
-}
   };
 
   return (
