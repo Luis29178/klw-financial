@@ -37,3 +37,4 @@ export const updateEvent = async (eventId, event) => {
   });
   return response.data;
 };
+

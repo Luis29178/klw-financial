@@ -8,8 +8,8 @@ import {
 import { useNavigate } from "react-router-dom";
 import { sendEmailVerification } from "firebase/auth";
 import emailjs from "emailjs-com";
+import MessageGen from "../../Components/MessageGen/MessageGen";
 
-const DOMPurify = require('dompurify');
 
 const Confirmation = () => {
   const [code, setCode] = useState("");
@@ -72,12 +72,11 @@ const Confirmation = () => {
     SendConfirmation(emailData);
   };
   const sendAdminAlertEmail = (adminEmail, docID) => {
-
     const emailData = {
       to_email: adminEmail,
       subject: "New Confirmed Appointment Alert",
       title: "New Confirmed Appointment Alert",
-      paragraph_1: `Your appointment with document ID ${docID} has been confirmed.` ,
+      paragraph_1: `Your appointment with document ID ${docID} has been confirmed.`,
       // You can customize the HTML content as needed
     };
     SendConfirmation(emailData);
@@ -139,14 +138,7 @@ const Confirmation = () => {
               </div>
             </div>
           ) : (
-            <div className="confirmation-message-container">
-              <div className="confirmation-message">Appointment Confirmed.</div>
-
-              <div className="confirmation-message delayed">
-                {" "}
-                Thank you! Redirecting to home page in {countdown} seconds...
-              </div>
-            </div>
+            <MessageGen line1={`Appointment Confirmed.`} line2={`Thank you! Redirecting to home page in ${countdown} seconds...`} line3={``} />
           )}
         </div>
       </div>

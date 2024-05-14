@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
 import "./Appointments.css";
-import { DayPicker } from "react-day-picker";
+
 import "../../Components/Calender/DayPickerStyles.css";
 import emailjs from "emailjs-com";
 
 import { addYears } from "date-fns";
 import { addAppointment } from "../../FireBaseAPIs/firestoreAPI";
-
+import AppointmentSetter from "../../Components/AppointmentSetter/AppointmentSetter";
+import MessageGen from "../../Components/MessageGen/MessageGen";
+import { useNavigate } from "react-router-dom";
 //TODO: Add prompt for birth Day and push to database
 
 const Appointments = () => {
+  //#region States  & Variables
   const [selectedDay, setSelectedDay] = useState(undefined);
   const [selectedDayRef, setSelectedDayRef] = useState(undefined);
   const [selectedTime, setSelectedTime] = useState(undefined);
@@ -22,7 +25,11 @@ const Appointments = () => {
   const [lastName, setLastName] = useState("");
   const [firstNameValid, setFirstNameValid] = useState(true);
   const [lastNameValid, setLastNameValid] = useState(true);
-  // Function to generate an array of dates that are Tuesday, Thursday, or Saturday within a specified range
+
+  const [submited, setSubmited] = useState(false);
+  const [countdown, setCountdown] = useState(5);
+
+  const navigate = useNavigate();
 
   const tempHours = [
     "10:00am - 11:00am",
@@ -31,57 +38,6 @@ const Appointments = () => {
     "2:30pm - 3:30pm",
     "4:00pm - 5:00pm",
   ];
-  const generateTargetDaysArray = () => {
-    const startDate = new Date(); // Start date (today)
-    const endDate = addYears(startDate, 5); // End date 5 years later
-
-    const isTargetDay = (date) => {
-      const dayOfWeek = date.getDay();
-      return dayOfWeek === 0 || dayOfWeek === 4 || dayOfWeek === 6; // 0 for Sunday, 4 for Thursday, 6 for Saturday
-    };
-    const targetDaysArray = [];
-
-    for (
-      let date = new Date(startDate);
-      date <= endDate;
-      date.setDate(date.getDate() + 1)
-    ) {
-      if (isTargetDay(date)) {
-        targetDaysArray.push(new Date(date)); // Push a new instance of the date to avoid reference issues
-      }
-    }
-
-    return targetDaysArray;
-  };
-
-  const resetSelections = () => {
-    setSelectedTime(undefined);
-  };
-
-  useEffect(() => {
-    // Generate targetDaysArray and disabledDays
-    const targetDaysArray = generateTargetDaysArray();
-    setDisabledDays([{ before: new Date() }, ...targetDaysArray]);
-  }, []);
-
-  useEffect(() => {
-    selectedDay !== undefined && selectedDayRef !== undefined
-      ? (() => {
-          selectedDay.toDateString() !== selectedDayRef.toDateString()
-            ? setSelectedDayRef(selectedDay)
-            : (() => {})();
-        })()
-      : (() => {
-          selectedDay !== undefined
-            ? setSelectedDayRef(selectedDay)
-            : (() => {})();
-        })();
-  }, [selectedDay]);
-
-  useEffect(() => {
-    resetSelections();
-  }, [selectedDayRef]);
-
   const timeTable = (
     <div className="time_table">
       <div className="hours_column">
@@ -131,6 +87,85 @@ const Appointments = () => {
     </div>
   );
 
+  //#endregion
+
+  //#region TempHours Generator
+
+  const generateTargetDaysArray = () => {
+    const startDate = new Date(); // Start date (today)
+    const endDate = addYears(startDate, 5); // End date 5 years later
+
+    const isTargetDay = (date) => {
+      const dayOfWeek = date.getDay();
+      return dayOfWeek === 0 || dayOfWeek === 4 || dayOfWeek === 6; // 0 for Sunday, 4 for Thursday, 6 for Saturday
+    };
+    const targetDaysArray = [];
+
+    for (
+      let date = new Date(startDate);
+      date <= endDate;
+      date.setDate(date.getDate() + 1)
+    ) {
+      if (isTargetDay(date)) {
+        targetDaysArray.push(new Date(date)); // Push a new instance of the date to avoid reference issues
+      }
+    }
+
+    return targetDaysArray;
+  };
+
+  const resetSelections = () => {
+    setSelectedTime(undefined);
+  };
+  //#endregion
+
+  //#region UseEffects
+  useEffect(() => {
+    // Generate targetDaysArray and disabledDays
+    const targetDaysArray = generateTargetDaysArray();
+    setDisabledDays([{ before: new Date() }, ...targetDaysArray]);
+  }, []);
+
+  useEffect(() => {
+    // Start countdown when confirmed is true
+    if (submited) {
+      const countdownInterval = setInterval(() => {
+        // Decrement countdown every second
+        setCountdown((prevCountdown) => prevCountdown - 1);
+      }, 1000);
+
+      // Clear interval when countdown reaches 0
+      if (countdown === 0) {
+        clearInterval(countdownInterval);
+        // Redirect to home page
+        navigate("/");
+      }
+
+      // Cleanup function to clear interval
+      return () => clearInterval(countdownInterval);
+    }
+  }, [submited, countdown]);
+
+  useEffect(() => {
+    selectedDay !== undefined && selectedDayRef !== undefined
+      ? (() => {
+          selectedDay.toDateString() !== selectedDayRef.toDateString()
+            ? setSelectedDayRef(selectedDay)
+            : (() => {})();
+        })()
+      : (() => {
+          selectedDay !== undefined
+            ? setSelectedDayRef(selectedDay)
+            : (() => {})();
+        })();
+  }, [selectedDay]);
+
+  useEffect(() => {
+    resetSelections();
+  }, [selectedDayRef]);
+  //#endregion
+
+  //#region Functions
   function isValidEmailFormat(email) {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     var passFormat = regex.test(email) === true ? true : false;
@@ -170,14 +205,14 @@ const Appointments = () => {
         setTimeout(() => setPurposeValid(true), 1000);
       }
       if (!passEmail) {
-        setTimeout(() => setEmailValid(true), 1000); 
+        setTimeout(() => setEmailValid(true), 1000);
       }
 
       if (!passFName) {
-        setTimeout(() => setFirstNameValid(true), 1000); 
+        setTimeout(() => setFirstNameValid(true), 1000);
       }
       if (!passLName) {
-        setTimeout(() => setLastNameValid(true), 1000); 
+        setTimeout(() => setLastNameValid(true), 1000);
       }
       return; // Exit if validation fails
     }
@@ -185,6 +220,7 @@ const Appointments = () => {
     if (passEmail === true && passPurpose === true) {
       await generateAppointment();
     }
+    setSubmited(true);
   };
 
   const generateAppointment = async () => {
@@ -197,14 +233,12 @@ const Appointments = () => {
       sendUserEmail(emailData);
     };
     const sendUserEmail = (emailData) => {
-
       emailjs
         .send(
-          'service_n3f8s79',
+          "service_n3f8s79",
           "template_75sjxx1",
           emailData,
           process.env.REACT_APP_EMAILJS_PUBLIC_ID
-
         )
         .then(
           (response) => {
@@ -256,70 +290,40 @@ const Appointments = () => {
     // Concatenate and return the code
     return FLChars + numberCode;
   };
+  //#endregion
 
   return (
     <div className="appointmentContainer">
       <div className="appointment">
-        <DayPicker
-          mode="single"
-          selected={selectedDay}
-          onSelect={setSelectedDay}
-          disabled={disabledDays}
-          showOutsideDays
-          footer={selectedDay !== undefined ? timeTable : <></>}
-        />
-
-        {selectedTime !== undefined && selectedDay !== undefined ? (
-          <div className="purpose_notes_box">
-            <div className="purpose_notes">
-              <p className="purpose_notes_text">Purpose of Appointment:</p>
-              <div className="name_container">
-                <input
-                  value={firstName}
-                  className={`first_name ${
-                    !firstNameValid ? "input-invalid" : ""
-                  }`}
-                  placeholder="First Name"
-                  onChange={(e) => setFirstName(e.target.value)}
-                />
-                <input
-                  value={lastName}
-                  className={`last_name ${
-                    !lastNameValid ? "input-invalid" : ""
-                  }`}
-                  placeholder="Last Name"
-                  onChange={(e) => setLastName(e.target.value)}
-                />
-              </div>
-              <textarea
-                value={purpose}
-                className={`purpose_notes_input ${
-                  !purposeValid ? "input-invalid" : ""
-                }`}
-                placeholder="Please provide a brief description of what you are looking to discuss."
-                onChange={(e) => setPurpose(e.target.value)}
-              />
-              <input
-                value={email}
-                className={`appointment_email_input ${
-                  !emailValid ? "input-invalid" : ""
-                }`}
-                type="email"
-                placeholder="you@email.com"
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <div className="submit_button_box">
-                <button
-                  onClick={() => SubmitAction()}
-                  className="submit_button"
-                >
-                  Submit
-                </button>
-              </div>
-            </div>
-          </div>
+        {!submited ? (
+          <AppointmentSetter
+            selectedDay={selectedDay}
+            setSelectedDay={setSelectedDay}
+            disabledDays={disabledDays}
+            timeTable={timeTable}
+            selectedTime={selectedTime}
+            firstName={firstName}
+            setFirstName={setFirstName}
+            firstNameValid={firstNameValid}
+            lastName={lastName}
+            setLastName={setLastName}
+            lastNameValid={lastNameValid}
+            purpose={purpose}
+            setPurpose={setPurpose}
+            purposeValid={purposeValid}
+            email={email}
+            setEmail={setEmail}
+            emailValid={emailValid}
+            SubmitAction={SubmitAction}
+          />
         ) : (
-          <></>
+          <div className="m-gen">
+            <MessageGen
+              line1={`Appointment Submitted.`}
+              line2={`Please check your email to confrim appointment and calander invitation.`}
+              line3={`Thank you! Redirecting to home page in ${countdown} seconds...`}
+            />
+          </div>
         )}
       </div>
     </div>

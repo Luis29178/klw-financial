@@ -1,23 +1,6 @@
-.confirmation-message-container {
-    width: 100vw;
-    max-width: 700px;
-    min-width: 350px;
-    height: 70px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    margin: 0 auto; /* Horizontally center the container */
-  }
+
   
-  .confirmation-message {
-    display: flex;
-    height: fit-content;
-    width: fit-content;
-    color: #000;
-    font-family: "Poppins", sans-serif;
-    animation: slide 1s ease-out forwards;
-  }
+
   
   .confirm {
     display: flex;
@@ -143,19 +126,7 @@
     }
   }
   
-  .delayed {
-    animation-delay: 1s; /* Delay the animation by 1 second */
-  }
-  
-  @keyframes slide {
-    from {
-      transform: translateX(-100%);
-    }
-    to {
-      transform: translateX(0%);
-      color: #fff;
-    }
-  }
+
   
   @keyframes flashRedWhite {
     25%,
