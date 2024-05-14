@@ -3,13 +3,13 @@ import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBkn-s10axQJw1VwuNj2TVwO705XsJsyAw",
-  authDomain: "klw-financial.firebaseapp.com",
-  projectId: "klw-financial",
-  storageBucket: "klw-financial.appspot.com",
-  messagingSenderId: "149951852980",
-  appId: "1:149951852980:web:4abc9331d317ed6e1382e1",
-  measurementId: "G-7SXD9LFBW8"
+  apiKey: process.env.REACT_APP_FRIEBASE_APIKEY,
+  authDomain: process.env.REACT_APP_FRIEBASE_AUTH_DOM,
+  projectId: process.env.REACT_APP_FRIEBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FRIEBASE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FRIEBASE_MESSENGER_ID,
+  appId: process.env.REACT_APP_FRIEBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FRIEBASE_MESUREMENT_ID
 };
 
 

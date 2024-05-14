@@ -4,12 +4,10 @@ import {
   checkDocumentExistence,
   updateDocument,
 } from "../../FireBaseAPIs/firestoreAPI";
-
 import { useNavigate } from "react-router-dom";
 import { sendEmailVerification } from "firebase/auth";
 import emailjs from "emailjs-com";
 import MessageGen from "../../Components/MessageGen/MessageGen";
-
 
 const Confirmation = () => {
   const [code, setCode] = useState("");
@@ -85,8 +83,14 @@ const Confirmation = () => {
   const ConfirmAppointment = (docID) => {
     const email = "luis29178@gmail.com";
     const adminEmail = "luis29178@gmail.com";
+    
+
+
     sendConfirmationEmail(email, docID);
     sendAdminAlertEmail(adminEmail, docID);
+
+
+
   };
 
   const handleConfirm = async () => {
@@ -138,7 +142,11 @@ const Confirmation = () => {
               </div>
             </div>
           ) : (
-            <MessageGen line1={`Appointment Confirmed.`} line2={`Thank you! Redirecting to home page in ${countdown} seconds...`} line3={``} />
+            <MessageGen
+              line1={`Appointment Confirmed.`}
+              line2={`Thank you! Redirecting to home page in ${countdown} seconds...`}
+              line3={``}
+            />
           )}
         </div>
       </div>
