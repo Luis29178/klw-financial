@@ -13,18 +13,27 @@ import {
 const checkDocumentExistence = async (code) => {
   try {
     const appointmentRef = doc(db, "Appointments", code);
-      const appointmentSnap = await getDoc(appointmentRef);
-      return appointmentSnap.exists();
+    const appointmentSnap = await getDoc(appointmentRef);
+    return appointmentSnap.exists();
   } catch (error) {
-      console.error("Error checking document existence:", error);
-      return false;
+    console.error("Error checking document existence:", error);
+    return false;
   }
 };
 
+const getAppointmentDoc = async (code) => {
+  try {
+    const appointmentRef = doc(db, "Appointments", code);
+    const appointmentSnap = await getDoc(appointmentRef);
+    return appointmentSnap;
+  } catch (error) {
+    console.error("Error checking document existence:", error);
+    return false;
+  }
+};
 
 const addDocument = async (collectionName, newDocument) => {
   try {
-    
     const docRef = await addDoc(collection(db, collectionName), newDocument);
     console.log("Document written with ID: ", docRef.id);
   } catch (e) {
@@ -80,4 +89,5 @@ export {
   deleteDocument,
   checkDocumentExistence,
   addAppointment,
+  getAppointmentDoc,
 };

@@ -3,11 +3,14 @@ import "./Confirmation.css";
 import {
   checkDocumentExistence,
   updateDocument,
+  getAppointmentDoc,
+
 } from "../../FireBaseAPIs/firestoreAPI";
 import { useNavigate } from "react-router-dom";
-import { sendEmailVerification } from "firebase/auth";
 import emailjs from "emailjs-com";
 import MessageGen from "../../Components/MessageGen/MessageGen";
+
+
 
 const Confirmation = () => {
   const [code, setCode] = useState("");
@@ -80,12 +83,39 @@ const Confirmation = () => {
     SendConfirmation(emailData);
   };
 
-  const ConfirmAppointment = (docID) => {
+  const formatDate = (dateString, timeString) => {
+    const [startTime, endTime] = timeString.split(" - ");
+    const currentYear = new Date().getFullYear();
+    const startDateTime = new Date(`${dateString} ${currentYear} ${startTime}`);
+    const endDateTime = new Date(`${dateString} ${currentYear} ${endTime}`);
+
+    return {
+      start: startDateTime.toISOString(),
+      end: endDateTime.toISOString(),
+    };
+  };
+  const handleCreateEvent = async (appointment) => {
+    if (appointment) {
+      const { start, end } = formatDate(appointment.date, appointment.time);
+      const exampleEventDetails = {
+        summary: `Meeting with ${appointment.name}`,
+        description: appointment.purpose,
+        startDateTime: start,
+        endDateTime: end,
+      };
+
+    }
+  };
+
+  const ConfirmAppointment = async (docID) => {
     const email = "luis29178@gmail.com";
     const adminEmail = "luis29178@gmail.com";
-    
 
 
+    const appointment = await getAppointmentDoc(docID);
+
+   
+    handleCreateEvent(appointment)
     sendConfirmationEmail(email, docID);
     sendAdminAlertEmail(adminEmail, docID);
 

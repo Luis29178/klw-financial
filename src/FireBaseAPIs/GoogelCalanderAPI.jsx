@@ -1,40 +1,50 @@
-import { google } from 'googleapis';
+const functions = require('firebase-functions');
+const admin = require('firebase-admin');
+const { google } = require('googleapis');
+const OAuth2 = google.auth.OAuth2;
 
-const { OAuth2 } = google.auth;
+admin.initializeApp();
 
 const oAuth2Client = new OAuth2(
-  'YOUR_CLIENT_ID',
-  'YOUR_CLIENT_SECRET'
+  functions.config().google.client_id,
+  functions.config().google.client_secret,
+  'urn:ietf:wg:oauth:2.0:oob'
 );
 
-// Assuming you have a method to obtain these tokens
 oAuth2Client.setCredentials({
-  refresh_token: 'YOUR_REFRESH_TOKEN',
+  refresh_token: functions.config().google.refresh_token
 });
 
 const calendar = google.calendar({ version: 'v3', auth: oAuth2Client });
 
-export const createEvent = async (event) => {
-  const response = await calendar.events.insert({
-    calendarId: 'primary',
-    resource: event,
-  });
-  return response.data;
-};
+exports.createCalendarEvent = functions.https.onRequest(async (req, res) => {
+  if (req.method !== 'POST') {
+    return res.status(405).send('Method Not Allowed');
+  }
 
-export const deleteEvent = async (eventId) => {
-  await calendar.events.delete({
-    calendarId: 'primary',
-    eventId: eventId,
-  });
-};
+  const { summary, description, startDateTime, endDateTime } = req.body;
 
-export const updateEvent = async (eventId, event) => {
-  const response = await calendar.events.update({
-    calendarId: 'primary',
-    eventId: eventId,
-    resource: event,
-  });
-  return response.data;
-};
+  const event = {
+    summary,
+    description,
+    start: {
+      dateTime: startDateTime,
+      timeZone: 'America/Los_Angeles',
+    },
+    end: {
+      dateTime: endDateTime,
+      timeZone: 'America/Los_Angeles',
+    },
+  };
 
+  try {
+    const response = await calendar.events.insert({
+      calendarId: 'primary',
+      resource: event,
+    });
+    res.status(200).send(response.data);
+  } catch (error) {
+    console.error('Error creating calendar event:', error);
+    res.status(500).send('Failed to create calendar event');
+  }
+});
