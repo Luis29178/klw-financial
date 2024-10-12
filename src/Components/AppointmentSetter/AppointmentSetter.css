@@ -47,7 +47,7 @@
     overflow-y: auto; /* Allow vertical scroll if content exceeds the height */
     resize: none; /* Prevent resizing of the textarea */
     transition: border-color 0.25s ease;
-    margin: 1em 0 0 0;
+    margin: 1em 0 1em 0;
     font-family: "Poppins", sans-serif;
   }
   
@@ -55,7 +55,7 @@
     border: 1px solid;
     border-color: #ff000060; /* Change outer border color when focused */
     outline: 2px solid #ff444460; /* Change outline color when focused */
-    margin: calc(1em + 1px) 0 0 1px;
+    margin: calc(1em + 1px) 0 calc(1em + 1px) 1px;
   }
   
   .submit_button_box {
@@ -139,5 +139,5 @@
   .name_container {
     display: flex;
     gap: 5px;
-    padding-bottom: 10px;
+    padding-bottom: 0px;
   }

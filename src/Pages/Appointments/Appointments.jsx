@@ -176,14 +176,11 @@ const Appointments = () => {
   }
 
   const SubmitAction = async () => {
-    var passPurpose = false;
     var passEmail = false;
     var passFName = false;
     var passLName = false;
 
-    if (purpose !== "") {
-      passPurpose = true;
-    }
+
     if (email !== "") {
       passEmail = isValidEmailFormat(email);
     }
@@ -193,17 +190,13 @@ const Appointments = () => {
     if (lastName !== "") {
       passLName = true;
     }
-
-    setPurposeValid(passPurpose); // Update state based on validation
+    // Update state based on validation
     setEmailValid(passEmail);
     setFirstNameValid(passFName);
     setLastNameValid(passLName);
 
-    if (!passEmail || !passPurpose || !passFName || !passLName) {
+    if (!passEmail || !passFName || !passLName) {
       // If validation fails, trigger flashing for 0.5 seconds
-      if (!passPurpose) {
-        setTimeout(() => setPurposeValid(true), 1000);
-      }
       if (!passEmail) {
         setTimeout(() => setEmailValid(true), 1000);
       }
@@ -214,10 +207,12 @@ const Appointments = () => {
       if (!passLName) {
         setTimeout(() => setLastNameValid(true), 1000);
       }
+
+
       return; // Exit if validation fails
     }
 
-    if (passEmail === true && passPurpose === true) {
+    if (passEmail === true) {
       await generateAppointment();
     }
     setSubmited(true);
@@ -256,7 +251,7 @@ const Appointments = () => {
     const appointmentDocument = {
       name: `${firstName} ${lastName}`.trimEnd(),
       email: email, // Assuming 'email' is already defined
-      purpose: purpose, // Assuming 'purpose' is already defined
+      purpose: purpose !== "" ? purpose : "not given", // Assuming 'purpose' is already defined
       date: selectedDay.toLocaleDateString("en-US", {
         month: "long",
         day: "numeric",

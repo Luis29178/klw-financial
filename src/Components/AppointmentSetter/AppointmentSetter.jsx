@@ -54,14 +54,6 @@ function AppointmentSetter({
                 onChange={(e) => setLastName(e.target.value)}
               />
             </div>
-            <textarea
-              value={purpose}
-              className={`purpose_notes_input ${
-                !purposeValid ? "input-invalid" : ""
-              }`}
-              placeholder="Please provide a brief description of what you are looking to discuss."
-              onChange={(e) => setPurpose(e.target.value)}
-            />
             <input
               value={email}
               className={`appointment_email_input ${
@@ -71,6 +63,15 @@ function AppointmentSetter({
               placeholder="you@email.com"
               onChange={(e) => setEmail(e.target.value)}
             />
+            <textarea
+              value={purpose}
+              className={`purpose_notes_input ${
+                !purposeValid ? "input-invalid" : ""
+              }`}
+              placeholder="Please provide a brief description of what you are looking to discuss.  (Optional)"
+              onChange={(e) => setPurpose(e.target.value)}
+            />
+            
             <div className="submit_button_box">
               <button onClick={() => SubmitAction()} className="submit_button">
                 Submit
